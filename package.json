@@ -2,15 +2,23 @@
   "name": "llamajet-driver-ts",
   "version": "1.0.0",
   "description": "",
-  "main": "build/src/main.js",
-  "types": "build/src/main.d.ts",
+  "main": "dist/index.mjs",
   "files": [
-    "build"
+    "dist"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "ts-node src/main.tsx",
     "test": "vitest --disable-console-intercept",
-    "build": "tsc"
+    "build": "tsdown",
+    "prepare": "pnpm run build"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +29,7 @@
     "@types/node": "^22.15.19",
     "serialport": "^13.0.0",
     "ts-node": "^10.9.2",
+    "tsdown": "0.17.0-beta.4",
     "typescript": "^5.6.2",
     "vitest": "^2.1.9"
   },
