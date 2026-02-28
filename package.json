@@ -18,7 +18,7 @@
   "scripts": {
     "dev": "ts-node src/main.tsx",
     "test": "vitest --disable-console-intercept",
-    "build": "tsdown --dts",
+    "build": "tsdown",
     "prepare": "pnpm run build"
   },
   "keywords": [],
