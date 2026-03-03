@@ -1,12 +1,12 @@
-import { SerialPort, ReadlineParser } from "serialport";
-import type {
-	MotorState,
-	MotorMoveParameters,
-	MotorVelocityParameters,
-	DigitalPinWriteParameters,
-	PinMode,
-} from "../models/clearcore";
 import type { Duplex } from "node:stream";
+import { ReadlineParser, SerialPort } from "serialport";
+import type {
+	DigitalPinWriteParameters,
+	MotorMoveParameters,
+	MotorState,
+	MotorVelocityParameters,
+	PinMode,
+} from "../models/clearcore.js";
 
 export interface IClearCore {
 	getVersion(): Promise<string>;
@@ -82,11 +82,9 @@ export class ClearCore implements IClearCore {
 
 	private sendCommand(command: string, timeoutMs = 100): Promise<string> {
 		this.commandQueue = this.commandQueue.then(
-			() =>
-				new Promise((resolve, reject) => {
-					// Reset the buffer before sending the command.
-					this.resetBuffer();
-
+			async () => {
+				await this.resetBuffer();
+				return new Promise((resolve, reject) => {
 					let timeoutId: NodeJS.Timeout;
 
 					// Add the command ID to the command string.
@@ -149,7 +147,8 @@ export class ClearCore implements IClearCore {
 							}
 						},
 					);
-				}),
+				});
+			},
 		);
 		return this.commandQueue;
 	}

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { ClearCore } from "../../src/lib/clearcore";
+import { ClearCore } from "../../src/lib/clearcore.js";
 import { Duplex } from "stream";
 
 class TestStream extends Duplex {
